@@ -1,0 +1,15 @@
+<ul class="nav nav-pills">
+  <% Menu::CAFE_UIDS.each_with_index do |cafe, index| %>
+    <% cafe_uid, cafe_name  = cafe %>
+
+    <li class="nav-item">
+      <a
+        href="#cafe-<%= cafe_uid %>"
+        class="nav-link <%= :active if index.zero? %>"
+        data-toggle="pill"
+      >
+        <%= I18n.t("cafes.#{cafe_name}.title") %>
+      </a>
+    </li>
+  <% end %>
+</ul>

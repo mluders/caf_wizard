@@ -1,0 +1,28 @@
+<div class="tab-content">
+  <% @menus.each.with_index do |menu, index| %>
+    <div id="cafe-<%= menu.cafe_uid %>" class="tab-pane <%= 'active' if index == 0 %>">
+      <% if menu.dayparts.present? %>
+        <% menu.dayparts.each do |daypart| %>
+          <table class="table table-striped">
+            <thead class="thead-default">
+              <tr>
+                <th><%= daypart['label'] %><span class="float-right"><%= daypart['starttime'] %> - <%= daypart['endtime'] %></span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% daypart['stations'].each do |station, items|%>
+                <% items.each do |item| %>
+                  <tr>
+                    <td class="vertical-center"><%= item %><br><small><%= station.titleize %><small></td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      <% else %>
+        <h1> <%= I18n.t("cafes.#{menu.cafe_name}.closed_apology") %> <h1>
+      <% end %>
+    </div>
+  <% end %>
+</div>
