@@ -9,56 +9,54 @@ h1, h2, h3, h4, h5, h6{
 }
 
 small {
-    font-size: 0.8em;
-    color: rgb(175, 175, 175);
-    font-weight: 400;
+  font-size: 0.85em;
+  color: rgb(175, 175, 175);
+  font-weight: 500;
 }
 
 .nav {
-  font-size: 1.55em;
+  font-size: 1.1em;
   font-weight: 400;
 }
-
-/*
-.nav-filter {
-	background-color: rgb(200, 94, 197);
-}
-*/
 
 .nav {
   background-color: rgb(116, 94, 197)
 }
 
 .nav-pills a {
-    color: #c1b7e7;
-    background-color:rgb(116, 94, 197);
+  color: #c1b7e7;
+  background-color: transparent;
 }
-
-.centered-pills { text-align:center; }
-.centered-pills ul.nav-pills { display:inline-block; }
-.centered-pills li { display:inline; }
-.centered-pills a { float:left; }
-* html .centered-pills ul.nav-pills { display:inline; } /* IE6 */
-*+html .centered-pills ul.nav-pills { display:inline; } /* IE7 */
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   background-color: transparent !important;
 }
 
+.nav-link {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
 .table thead{
-    background-color: #373A3C;
-    color: #ECEEEF;
-    font-size: 1.4em;
+  background-color: #373A3C;
+  color: #ECEEEF;
+  font-size: 1em;
 }
 
 .table tbody{
-    color: #373A3C;
-    font-size: 1.15em;
+  color: #373A3C;
+  font-size: 1.15em;
 }
 
-td {
-    height:50px;
-    vertical-align: middle !important;
+
+.table thead > tr > th,
+.table tfoot > tr > th,
+.table thead > tr > td {
+  font-size: 1.2em;
+  border: 0px solid #2980B9;
 }
 
-.table thead > tr > th, .table tfoot > tr > th, .table thead > tr > td{ border: 0px solid #2980B9; }
+.table td {
+  font-size: .9em;
+  font-weight: 600;
+}
