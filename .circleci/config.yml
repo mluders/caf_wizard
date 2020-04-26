@@ -1,0 +1,65 @@
+version: 2.1
+
+
+orbs:
+  ruby: circleci/ruby@0.1.2
+  heroku: circleci/heroku@1.0.1
+
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.6.1-stretch-node
+        environment:
+          PGHOST: 127.0.0.1
+          PGUSER: caf_wizard
+          RAILS_ENV: test
+      - image: circleci/postgres:9.6.2-alpine
+        environment:
+          POSTGRES_USER: caf_wizard
+          POSTGRES_DB: caf_wizard_test
+          POSTGRES_PASSWORD: ""
+    executor: ruby/default
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - caf-wizard-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - caf-wizard-bundle-v2-
+
+      - run:
+          name: Bundle Install
+          command: bundle check --path vendor/bundle || bundle install --deployment
+
+      - save_cache:
+          key: caf-wizard-bundle-v2-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - restore_cache:
+          keys:
+            - caf-wizard-yarn-{{ checksum "yarn.lock" }}
+            - caf-wizard-yarn-
+
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
+
+      - save_cache:
+          key: caf-wizard-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Database setup
+          command: bin/rails db:schema:load --trace
+
+      - run:
+          name: Run tests
+          command: |
+            bundle exec rails test
