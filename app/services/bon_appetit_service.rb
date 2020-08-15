@@ -4,7 +4,7 @@ class BonAppetitService
       r = HTTParty.get("https://legacy.cafebonappetit.com/api/2/menus?cafe=#{cafe_uid}")
       raw_json = JSON.parse(r.body())
 
-      raw_dayparts = raw_json.dig('days', 0, 'cafes', "#{cafe_uid}", 'dayparts', 0)
+      raw_dayparts = raw_json.dig('days', 0, 'cafes', "#{cafe_uid}", 'dayparts', 0) || []
       raw_items = raw_json['items']
 
       output = []
